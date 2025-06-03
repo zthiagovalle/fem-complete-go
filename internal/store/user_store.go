@@ -88,7 +88,7 @@ func (s *PostgresUserStore) GetUserByUsername(username string) (*User, error) {
 	query := `
 	SELECT id, username, email, password_hash, bio, created_at, updated_at
 	FROM users
-	WHERE username = &1
+	WHERE username = $1
 	`
 
 	err := s.db.QueryRow(query, username).
@@ -96,6 +96,7 @@ func (s *PostgresUserStore) GetUserByUsername(username string) (*User, error) {
 			&user.Username,
 			&user.Email,
 			&user.PasswordHash.hash,
+			&user.Bio,
 			&user.CreatedAt,
 			&user.UpdatedAt)
 
