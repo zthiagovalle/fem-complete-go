@@ -159,13 +159,13 @@ func (s *PostgresUserStore) GetUserToken(scope, plaintextPassword string) (*User
 	}
 
 	err := s.db.QueryRow(query, tokenHash[:], scope, time.Now()).Scan(
-		user.ID,
-		user.Username,
-		user.Email,
-		user.PasswordHash.hash,
-		user.Bio,
-		user.CreatedAt,
-		user.UpdatedAt,
+		&user.ID,
+		&user.Username,
+		&user.Email,
+		&user.PasswordHash.hash,
+		&user.Bio,
+		&user.CreatedAt,
+		&user.UpdatedAt,
 	)
 
 	if err == sql.ErrNoRows {
